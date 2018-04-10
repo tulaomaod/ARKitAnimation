@@ -174,8 +174,6 @@ class ViewController: UIViewController {
         action.timingMode = .easeInEaseOut
         rocketShipNode.runAction(action)
         
-        
-        
     }
     
 }

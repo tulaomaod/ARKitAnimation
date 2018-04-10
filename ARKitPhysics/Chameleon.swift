@@ -56,7 +56,7 @@ class Chameleon: SCNScene {
     }
     
     func setTransform(_ transform: simd_float4x4) {
-        contentRootNode.simdTransform = transform
+        bobRootNode.simdTransform = transform
     }
     
     // MARK: - 转向和初始动画
@@ -80,5 +80,11 @@ class Chameleon: SCNScene {
         if let anim = startIdleAnimation {
             bobRootNode.addAnimation(anim, forKey: anim.keyPath)
         }
+    }
+    
+    /// 播放动画
+    private func playAnimation(animation: SCNAnimation) {
+        bobRootNode.removeAllAnimations()
+        bobRootNode.addAnimation(animation, forKey: animation.keyPath)
     }
 }
