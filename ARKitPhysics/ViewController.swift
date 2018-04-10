@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     var planeNodes = [SCNNode]()
     let rocketshipNodeName = "rocketship"
     
-    
-    lazy var chameleon:Chameleon = {
-        return Chameleon()
-    }()
+//    lazy var chameleon:Chameleon = {
+//        return Chameleon()
+//    }()
+    var chameleon: Chameleon!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,7 @@ class ViewController: UIViewController {
 //
 //        // Set the scene to the view
 //        sceneView.scene = scene
+        chameleon = Chameleon()
         
         configureLighting()
         addTapGestureToSceneView()
@@ -104,7 +105,7 @@ class ViewController: UIViewController {
         
         let translation = hitTestResult.worldTransform.translation
         let x = translation.x
-        let y = translation.y + 0.1
+        let y = translation.y + 0.05
         let z = translation.z
     
 //        guard let chameleonScene = SCNScene(named: "art.scnassets/animation-idle.scn"),

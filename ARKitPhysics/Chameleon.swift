@@ -17,6 +17,8 @@ class Chameleon: SCNScene {
     private var turnLeftAnimation: SCNAnimation?
     private var turnRightAnimation: SCNAnimation?
     
+    private var chameleonIsTurning: Bool = false
+    
     // 状态变量
     private var modelLoaded: Bool = false
     
@@ -86,12 +88,24 @@ class Chameleon: SCNScene {
         if let anim = idleAnimation {
             contentRootNode.childNodes[0].addAnimation(anim, forKey: anim.keyPath)
         }
+        
+        chameleonIsTurning = false
     }
     
     /// 播放动画
     private func playAnimation(animation: SCNAnimation) {
         let modelBaseNode = contentRootNode.childNodes[0]
         modelBaseNode.addAnimation(animation, forKey: animation.keyPath)
+        
+        chameleonIsTurning = true
+        SCNTransaction.begin()
+        SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        SCNTransaction.animationDuration = animation.duration
+//        modelBaseNode.transform = SCNMatrix4Mult(modelBaseNode.presentation.transform, SCNMatrix4MakeRotation(rotationAngle, 0, 1, 0))
+        SCNTransaction.completionBlock = {
+            self.chameleonIsTurning = false
+        }
+        SCNTransaction.commit()
     }
     
     public func turnLeft() {
