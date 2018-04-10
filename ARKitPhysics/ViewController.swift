@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     let rocketshipNodeName = "rocketship"
     
     
-    var chameleon = Chameleon()
+    lazy var chameleon:Chameleon = {
+        return Chameleon()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +71,9 @@ class ViewController: UIViewController {
     }
     
     func addTapGestureToSceneView() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addRocketshipToSceneView(recognizer:)))
+        // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addRocketshipToSceneView(recognizer:)))
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addChameleonToSceneView(recognizer:)))
         sceneView.addGestureRecognizer(tapGesture)
     }
     
@@ -88,6 +92,30 @@ class ViewController: UIViewController {
         sceneView.automaticallyUpdatesLighting = true
         // 是否自动点亮没有光源的场景
         sceneView.autoenablesDefaultLighting = true
+    }
+    
+    // 添加恐龙
+    @objc func addChameleonToSceneView(recognizer: UIGestureRecognizer) {
+        let tapLocation = recognizer.location(in: sceneView)
+        let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+        guard let hitTestResult = hitTestResults.first else {
+            return
+        }
+        
+        let translation = hitTestResult.worldTransform.translation
+        let x = translation.x
+        let y = translation.y + 0.1
+        let z = translation.z
+    
+//        guard let chameleonScene = SCNScene(named: "art.scnassets/animation-idle.scn"),
+//            let bobNode = chameleonScene.rootNode.childNode(withName: "Bob_root", recursively: true) else {
+//                return
+//        }
+        let baseNode = chameleon.contentRootNode.childNodes[0]
+        baseNode.position = SCNVector3Make(x, y, z)
+        
+        sceneView.scene.rootNode.addChildNode(baseNode)
+        
     }
     
     /// 添加火箭
@@ -150,6 +178,11 @@ class ViewController: UIViewController {
     
     /// 发射火箭
     @objc func launchRocketship(recognizer: UIGestureRecognizer) {
+        
+        chameleon.turnLeft()
+        
+        return
+        
         guard recognizer.state == .ended else {
             return
         }

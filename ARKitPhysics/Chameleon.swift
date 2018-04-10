@@ -11,11 +11,11 @@ import SceneKit
 
 class Chameleon: SCNScene {
 
-    private var bobRootNode: SCNNode!
+    open let contentRootNode = SCNNode()
     // Animations
     private var idleAnimation: SCNAnimation?
-    private var jumpAnimation: SCNAnimation?
-    private var startIdleAnimation: SCNAnimation?
+    private var turnLeftAnimation: SCNAnimation?
+    private var turnRightAnimation: SCNAnimation?
     
     // 状态变量
     private var modelLoaded: Bool = false
@@ -32,14 +32,20 @@ class Chameleon: SCNScene {
     
     /// 加载模型
     private func loadModel() {
-        guard let virtualObjectScene = SCNScene(named: "animation-start-idle", inDirectory: "art.scnassets") else { return  }
+        guard let virtualObjectScene = SCNScene(named: "chameleon", inDirectory: "art.scnassets") else { return  }
         
         // 隐藏
-        hide()
+        // hide()
         
         // 设置节点
-        bobRootNode = virtualObjectScene.rootNode.childNode(withName: "Bob_root", recursively: true)
-
+        let wrapperNode = SCNNode()
+        for node in virtualObjectScene.rootNode.childNodes {
+            wrapperNode.addChildNode(node)
+        }
+        
+        self.rootNode.addChildNode(contentRootNode)
+        contentRootNode.addChildNode(wrapperNode)
+        
         // 加载动画
         preloadAnimations()
         
@@ -48,43 +54,51 @@ class Chameleon: SCNScene {
     
     // MARK: - public api
     func hide() {
-        bobRootNode.isHidden = true
+        contentRootNode.isHidden = true
     }
     
     func show() {
-        bobRootNode.isHidden = false
+        contentRootNode.isHidden = false
     }
     
     func setTransform(_ transform: simd_float4x4) {
-        bobRootNode.simdTransform = transform
+        contentRootNode.simdTransform = transform
     }
     
     // MARK: - 转向和初始动画
     private func preloadAnimations() {
         
-        startIdleAnimation = SCNAnimation.fromFile(named: "animation-start-idle", inDirectory: "art.scnassets")
-        startIdleAnimation?.repeatCount = -1
+        idleAnimation = SCNAnimation.fromFile(named: "anim_idle", inDirectory: "art.scnassets")
+        idleAnimation?.repeatCount = -1
         
-        idleAnimation = SCNAnimation.fromFile(named: "animation-idle", inDirectory: "art.scnassets")
-        idleAnimation?.repeatCount = 1
-        idleAnimation?.blendInDuration = 0.3
-        idleAnimation?.blendOutDuration = 0.3
+        turnLeftAnimation = SCNAnimation.fromFile(named: "anim_turnleft", inDirectory: "art.scnassets")
+        turnLeftAnimation?.repeatCount = 1
+        turnLeftAnimation?.blendInDuration = 0.3
+        turnLeftAnimation?.blendOutDuration = 0.3
 
         
-        jumpAnimation = SCNAnimation.fromFile(named: "animation-jump", inDirectory: "art.scnassets")
-        jumpAnimation?.repeatCount = 1
-        jumpAnimation?.blendInDuration = 0.3
-        jumpAnimation?.blendOutDuration = 0.3
+        turnRightAnimation = SCNAnimation.fromFile(named: "anim_turnright", inDirectory: "art.scnassets")
+        turnRightAnimation?.repeatCount = 1
+        turnRightAnimation?.blendInDuration = 0.3
+        turnRightAnimation?.blendOutDuration = 0.3
         
         // 开始初始动画
-        if let anim = startIdleAnimation {
-            bobRootNode.addAnimation(anim, forKey: anim.keyPath)
+        if let anim = idleAnimation {
+            contentRootNode.childNodes[0].addAnimation(anim, forKey: anim.keyPath)
         }
     }
     
     /// 播放动画
     private func playAnimation(animation: SCNAnimation) {
-        bobRootNode.removeAllAnimations()
-        bobRootNode.addAnimation(animation, forKey: animation.keyPath)
+        let modelBaseNode = contentRootNode.childNodes[0]
+        modelBaseNode.addAnimation(animation, forKey: animation.keyPath)
+    }
+    
+    public func turnLeft() {
+        playAnimation(animation: turnLeftAnimation!)
+    }
+    
+    public func startIdle() {
+        playAnimation(animation: turnRightAnimation!)
     }
 }
