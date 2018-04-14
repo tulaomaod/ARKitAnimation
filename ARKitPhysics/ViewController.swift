@@ -17,20 +17,10 @@ class ViewController: UIViewController {
     var planeNodes = [SCNNode]()
     let rocketshipNodeName = "rocketship"
     
-//    lazy var chameleon:Chameleon = {
-//        return Chameleon()
-//    }()
-    var chameleon: Chameleon!
+    var chameleon = Chameleon()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        // Create a new scene
-//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-//
-//        // Set the scene to the view
-//        sceneView.scene = scene
-        chameleon = Chameleon()
         
         configureLighting()
         addTapGestureToSceneView()
@@ -65,7 +55,9 @@ class ViewController: UIViewController {
             
         sceneView.session.run(configuration)
         sceneView.delegate = self
-        
+        sceneView.scene = chameleon
+        // 隐藏
+        chameleon.hide()
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
@@ -108,10 +100,6 @@ class ViewController: UIViewController {
         let y = translation.y + 0.05
         let z = translation.z
     
-//        guard let chameleonScene = SCNScene(named: "art.scnassets/animation-idle.scn"),
-//            let bobNode = chameleonScene.rootNode.childNode(withName: "Bob_root", recursively: true) else {
-//                return
-//        }
         let baseNode = chameleon.contentRootNode.childNodes[0]
         baseNode.position = SCNVector3Make(x, y, z)
         
