@@ -112,7 +112,7 @@ class Chameleon: SCNScene {
         playAnimation(animation: turnLeftAnimation!)
     }
     
-    public func startIdle() {
+    public func turnRight() {
         playAnimation(animation: turnRightAnimation!)
     }
 }

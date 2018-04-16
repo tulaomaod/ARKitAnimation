@@ -29,6 +29,5 @@ extension SCNAnimation {
         animation?.keyPath = name
         
         return animation
-        
     }
 }

@@ -87,7 +87,7 @@ class ViewController: UIViewController {
         sceneView.autoenablesDefaultLighting = true
     }
     
-    // 添加恐龙
+    ///  添加恐龙
     @objc func addChameleonToSceneView(recognizer: UIGestureRecognizer) {
         let tapLocation = recognizer.location(in: sceneView)
         let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
@@ -95,16 +95,17 @@ class ViewController: UIViewController {
             return
         }
         
-        let translation = hitTestResult.worldTransform.translation
-        let x = translation.x
-        let y = translation.y + 0.05
-        let z = translation.z
+//        let translation = hitTestResult.worldTransform.translation
+//        let x = translation.x
+//        let y = translation.y + 0.05
+//        let z = translation.z
     
-        let baseNode = chameleon.contentRootNode.childNodes[0]
-        baseNode.position = SCNVector3Make(x, y, z)
+//        let baseNode = chameleon.contentRootNode.childNodes[0]
+//        baseNode.position = SCNVector3Make(x, y, z)
+//        sceneView.scene.rootNode.addChildNode(baseNode)
         
-        sceneView.scene.rootNode.addChildNode(baseNode)
-        
+        chameleon.setTransform(hitTestResult.worldTransform)
+        chameleon.show()
         
     }
     
@@ -133,7 +134,6 @@ class ViewController: UIViewController {
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         rocketshipNode.physicsBody = physicsBody
         
-        
         sceneView.scene.rootNode.addChildNode(rocketshipNode)
         
     }
@@ -150,6 +150,10 @@ class ViewController: UIViewController {
     
     /// 添加作用力
     @objc func applyForceToRocketship(recognizer: UIGestureRecognizer) {
+        // 右转
+        chameleon.turnRight()
+        return
+        
         guard recognizer.state == .ended  else {
             return
         }
@@ -168,9 +172,8 @@ class ViewController: UIViewController {
     
     /// 发射火箭
     @objc func launchRocketship(recognizer: UIGestureRecognizer) {
-        
+        // 恐龙左转
         chameleon.turnLeft()
-        
         return
         
         guard recognizer.state == .ended else {
