@@ -105,6 +105,7 @@ class ViewController: UIViewController {
         
         sceneView.scene.rootNode.addChildNode(baseNode)
         
+        
     }
     
     /// 添加火箭
