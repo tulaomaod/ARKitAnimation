@@ -63,6 +63,10 @@ class Chameleon: SCNScene {
         contentRootNode.isHidden = false
     }
     
+    func isVisible() -> Bool {
+        return !contentRootNode.isHidden
+    }
+    
     func setTransform(_ transform: simd_float4x4) {
         contentRootNode.simdTransform = transform
     }
