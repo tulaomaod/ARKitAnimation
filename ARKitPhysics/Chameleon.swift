@@ -55,6 +55,7 @@ class Chameleon: SCNScene {
     }
     
     // MARK: - public api
+    
     func hide() {
         contentRootNode.isHidden = true
     }
