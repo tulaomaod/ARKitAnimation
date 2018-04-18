@@ -28,12 +28,38 @@
                                     <action selector="backBtnDidClick:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fKH-LR-mSZ"/>
                                 </connections>
                             </button>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcX-5E-jcK" userLabel="toast">
+                                <rect key="frame" x="57" y="30" width="260" height="30"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2dI-Yc-TZ0">
+                                    <rect key="frame" x="0.0" y="0.0" width="260" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhZ-GV-1u0">
+                                            <rect key="frame" x="109" y="4.5" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QhZ-GV-1u0" firstAttribute="centerX" secondItem="2dI-Yc-TZ0" secondAttribute="centerX" id="HyD-Ry-8tn"/>
+                                        <constraint firstItem="QhZ-GV-1u0" firstAttribute="centerY" secondItem="2dI-Yc-TZ0" secondAttribute="centerY" id="JN4-P7-ZLM"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="A2V-ZV-dEp"/>
+                                    <constraint firstAttribute="height" constant="30" id="hRs-1s-Fih"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="DcX-5E-jcK" firstAttribute="centerX" secondItem="SQG-tv-nYS" secondAttribute="centerX" id="7gv-pr-jpL"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="MVP-mz-VOm" secondAttribute="trailing" id="HCA-GZ-rel"/>
                             <constraint firstItem="YFX-4H-072" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="IbQ-rG-yAA"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" id="L7F-XE-nCg"/>
+                            <constraint firstItem="DcX-5E-jcK" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="Nat-41-GzZ"/>
                             <constraint firstItem="YFX-4H-072" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" constant="10" id="czh-Mm-0K7"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" id="ilr-9Y-kC8"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="bottom" secondItem="MVP-mz-VOm" secondAttribute="bottom" id="s6P-1f-32y"/>
@@ -41,12 +67,14 @@
                         <viewLayoutGuide key="safeArea" id="rY6-kV-CGr"/>
                     </view>
                     <connections>
+                        <outlet property="label" destination="QhZ-GV-1u0" id="9cO-dt-GqH"/>
                         <outlet property="sceneView" destination="MVP-mz-VOm" id="YO2-Xc-CyG"/>
+                        <outlet property="toast" destination="DcX-5E-jcK" id="w0m-rF-djI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828" y="-259"/>
+            <point key="canvasLocation" x="828" y="-259.52023988005999"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="fYe-gq-Xq9">

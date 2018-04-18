@@ -14,10 +14,16 @@ class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    @IBOutlet weak var toast: UIVisualEffectView!
+    
+    @IBOutlet weak var label: UILabel!
+    
     var planeNodes = [SCNNode]()
     // let rocketshipNodeName = "rocketship"
     
     var chameleon = Chameleon()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
