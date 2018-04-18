@@ -197,19 +197,18 @@ extension ViewController: ARSessionObserver {
         
         switch camera.trackingState {
         case .notAvailable:
-            message = "Tracking not available"
+            message = "无法找到合适水平面请调整手机位置"
         case .limited(.initializing):
-            message = "Initializing AR session"
+            message = "初始化"
         case .limited(.excessiveMotion):
-            message = "Too much motion"
+            message = "慢慢移动你的手机"
         case .limited(.insufficientFeatures):
-            message = "Not enough surface details"
+            message = "尝试调亮灯光并稍作移动"
         case .normal:
             if !chameleon.isVisible() {
-                message = "Move to find a horizontal surface"
+                message = "移动手机寻找水平面"
             }
         default:
-            // We are only concerned with the tracking states above.
             message = "Camera changed tracking state"
         }
         
