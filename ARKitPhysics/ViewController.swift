@@ -23,21 +23,30 @@ class ViewController: UIViewController {
     
     var chameleon = Chameleon()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureLighting()
         addTapGestureToSceneView()
         // addSwipeGestureToSceneView()
-        
         addPanGestureToSceneView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSceneView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard ARWorldTrackingConfiguration.isSupported else {
+            fatalError("设备不支持")
+        }
+
+        UIApplication.shared.isIdleTimerDisabled = true
+
+        startNewSession()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,20 +68,26 @@ class ViewController: UIViewController {
     
     // MARK: - 初始化方法
     
-    ///  启动世界追踪
     func setupSceneView() {
-
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-            
-        sceneView.session.run(configuration)
         sceneView.delegate = self
         sceneView.scene = chameleon
-        // 隐藏
-        chameleon.hide()
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+    }
+    
+    ///  启动世界追踪
+    func startNewSession() {
+        // 隐藏toast
+        self.toast.alpha = 0
+        self.toast.frame = self.toast.frame.insetBy(dx: 5, dy: 5)
+        
+        chameleon.hide()
+        
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+
+        sceneView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
     }
     
     /// 添加单击和双击手势
@@ -161,20 +176,44 @@ class ViewController: UIViewController {
     
 }
 
+// MARK: - ARSessionObserver
 extension ViewController: ARSessionObserver {
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
     
     func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
+        showToast("Session was interrupted")
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        startNewSession()
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        showToast("Session failed: \(error.localizedDescription)")
+        startNewSession()
+    }
+    
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        var message: String? = nil
         
+        switch camera.trackingState {
+        case .notAvailable:
+            message = "Tracking not available"
+        case .limited(.initializing):
+            message = "Initializing AR session"
+        case .limited(.excessiveMotion):
+            message = "Too much motion"
+        case .limited(.insufficientFeatures):
+            message = "Not enough surface details"
+        case .normal:
+            if !chameleon.isVisible() {
+                message = "Move to find a horizontal surface"
+            }
+        default:
+            // We are only concerned with the tracking states above.
+            message = "Camera changed tracking state"
+        }
+        
+        message != nil ? showToast(message!) : hideToast()
     }
 }
 
@@ -248,4 +287,32 @@ extension UIColor {
     open class var transparentWhite: UIColor {
         return UIColor.white.withAlphaComponent(0.5)
     }
+}
+
+// MARK: - 展示和隐藏toast
+extension ViewController {
+    
+    func showToast(_ text: String) {
+        label.text = text
+        
+        guard toast.alpha == 0 else {
+            return
+        }
+        
+        toast.layer.masksToBounds = true
+        toast.layer.cornerRadius = 7.5
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.toast.alpha = 1
+            self.toast.frame = self.toast.frame.insetBy(dx: -5, dy: -5)
+        })
+        
+    }
+    
+    func hideToast() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.toast.alpha = 0
+            self.toast.frame = self.toast.frame.insetBy(dx: 5, dy: 5)
+        })
+    }  
 }
