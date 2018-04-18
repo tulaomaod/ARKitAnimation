@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
     
     var planeNodes = [SCNNode]()
-    let rocketshipNodeName = "rocketship"
+    // let rocketshipNodeName = "rocketship"
     
     var chameleon = Chameleon()
     
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         
         configureLighting()
         addTapGestureToSceneView()
-        addSwipeGestureToSceneView()
+        // addSwipeGestureToSceneView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,11 +67,17 @@ class ViewController: UIViewController {
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
     }
     
+    /// 添加单击和双击手势
     func addTapGestureToSceneView() {
-        // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addRocketshipToSceneView(recognizer:)))
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addChameleonToSceneView(recognizer:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.switchAnimation(recognizer:)))
+        tapGesture.numberOfTapsRequired = 1
         sceneView.addGestureRecognizer(tapGesture)
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addChameleonToSceneView(recognizer:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        sceneView.addGestureRecognizer(doubleTapGesture)
+        
+        tapGesture.require(toFail: doubleTapGesture)
     }
     
     func addSwipeGestureToSceneView() {
@@ -104,19 +110,21 @@ class ViewController: UIViewController {
         
     }
 
+    /// 切换动画
+    @objc func switchAnimation(recognizer: UIGestureRecognizer) {
+        chameleon.turnRight()
+    }
+    
     /// 添加作用力
     @objc func applyForceToRocketship(recognizer: UIGestureRecognizer) {
         // 右转
         chameleon.turnRight()
-        return
     }
-    
     
     /// 发射火箭
     @objc func launchRocketship(recognizer: UIGestureRecognizer) {
         // 恐龙左转
         chameleon.turnLeft()
-        return
     }
     
     // MARK: - button点击
