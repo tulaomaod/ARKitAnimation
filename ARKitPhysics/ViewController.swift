@@ -98,79 +98,17 @@ class ViewController: UIViewController {
         guard let hitTestResult = hitTestResults.first else {
             return
         }
-        
-//        let translation = hitTestResult.worldTransform.translation
-//        let x = translation.x
-//        let y = translation.y + 0.05
-//        let z = translation.z
-    
-//        let baseNode = chameleon.contentRootNode.childNodes[0]
-//        baseNode.position = SCNVector3Make(x, y, z)
-//        sceneView.scene.rootNode.addChildNode(baseNode)
-        
+
         chameleon.setTransform(hitTestResult.worldTransform)
         chameleon.show()
         
     }
-    
-    /// 添加火箭
-    @objc func addRocketshipToSceneView(recognizer: UIGestureRecognizer) {
-        let tapLocation = recognizer.location(in: sceneView)
-        let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
-        guard let hitTestResult = hitTestResults.first  else {
-            return
-        }
-        let translation = hitTestResult.worldTransform.translation
-        let x = translation.x
-        let y = translation.y + 0.1
-        let z = translation.z
-        
-        // 火箭
-        guard let rocketshipScene = SCNScene(named: "art.scnassets/rocketship.scn"),
-            let rocketshipNode = rocketshipScene.rootNode.childNode(withName: "rocketship", recursively: false) else {
-            return
-        }
-        
-        rocketshipNode.position = SCNVector3Make(x, y, z)
-        rocketshipNode.name = rocketshipNodeName
-        
-        // 添加物理刚体
-        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        rocketshipNode.physicsBody = physicsBody
-        
-        sceneView.scene.rootNode.addChildNode(rocketshipNode)
-        
-    }
-    
-    /// 获取火箭节点
-    func getRocketShipNode(from swipeLocation: CGPoint) -> SCNNode? {
-        let hitTestResults = sceneView.hitTest(swipeLocation)
 
-        guard let parentNode = hitTestResults.first?.node.parent, parentNode.name == rocketshipNodeName else {
-            return nil
-        }
-        return parentNode
-    }
-    
     /// 添加作用力
     @objc func applyForceToRocketship(recognizer: UIGestureRecognizer) {
         // 右转
         chameleon.turnRight()
         return
-        
-        guard recognizer.state == .ended  else {
-            return
-        }
-        // 获取火箭节点
-        let swipeLocation = recognizer.location(in: sceneView)
-        
-        guard let rocketNode = getRocketShipNode(from: swipeLocation), let physicsBody = rocketNode.physicsBody  else {
-            return
-        }
-        // 添加作用力
-        let direction = SCNVector3Make(0, 3, 0)
-        physicsBody.applyForce(direction, asImpulse: true)
-        
     }
     
     
@@ -179,35 +117,11 @@ class ViewController: UIViewController {
         // 恐龙左转
         chameleon.turnLeft()
         return
-        
-        guard recognizer.state == .ended else {
-            return
-        }
-        
-        let swipeLocation = recognizer.location(in: sceneView)
-        guard let rocketShipNode = getRocketShipNode(from: swipeLocation),
-        let physicsBody = rocketShipNode.physicsBody,
-        let reactorParticalSystem = SCNParticleSystem(named: "art.scnassets/reactor", inDirectory: nil),
-        let engineNode = rocketShipNode.childNode(withName: "node2", recursively: false) else {
-            return
-        }
-        
-        physicsBody.isAffectedByGravity = false
-        // 设置摩擦力
-        physicsBody.damping = 0
-        // 碰撞的节点数组
-        reactorParticalSystem.colliderNodes = planeNodes
-        engineNode.addParticleSystem(reactorParticalSystem)
-        
-        // 添加上升动作
-        let action = SCNAction.moveBy(x: 0, y: 0.3, z: 0, duration: 3)
-        action.timingMode = .easeInEaseOut
-        rocketShipNode.runAction(action)
-        
     }
     
     // MARK: - button点击
     
+    /// 返回
     @IBAction func backBtnDidClick(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
