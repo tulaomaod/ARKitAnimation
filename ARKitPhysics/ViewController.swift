@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         configureLighting()
         addTapGestureToSceneView()
         // addSwipeGestureToSceneView()
+        
+        addPanGestureToSceneView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +92,12 @@ class ViewController: UIViewController {
         sceneView.addGestureRecognizer(swipeDownGesture)
     }
     
+    /// 添加拖拽手势
+    func addPanGestureToSceneView() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.didPan(recognizer:)))
+        sceneView.addGestureRecognizer(panGesture)
+    }
+    
     func configureLighting() {
         // 是否自动更新场景的照明
         sceneView.automaticallyUpdatesLighting = true
@@ -113,6 +121,17 @@ class ViewController: UIViewController {
     /// 切换动画
     @objc func switchAnimation(recognizer: UIGestureRecognizer) {
         chameleon.turnRight()
+    }
+    
+    /// 手势拖拽
+    @objc func didPan(recognizer: UIGestureRecognizer) {
+        let location = recognizer.location(in: sceneView)
+        
+        let arHitTestResult = sceneView.hitTest(location, types: .existingPlane)
+        if !arHitTestResult.isEmpty {
+            let hit = arHitTestResult.first!
+            chameleon.setTransform(hit.worldTransform)
+        }
     }
     
     /// 添加作用力
