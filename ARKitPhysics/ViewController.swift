@@ -39,6 +39,10 @@ class ViewController: UIViewController {
         sceneView.session.pause()
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
@@ -200,6 +204,12 @@ class ViewController: UIViewController {
         action.timingMode = .easeInEaseOut
         rocketShipNode.runAction(action)
         
+    }
+    
+    // MARK: - button点击
+    
+    @IBAction func backBtnDidClick(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

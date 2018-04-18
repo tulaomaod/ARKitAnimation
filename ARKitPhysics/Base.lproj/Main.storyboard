@@ -1,27 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A278a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5D5-mb-HjW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ARKitPhysics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SQG-tv-nYS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVP-mz-VOm">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-4H-072">
+                                <rect key="frame" x="10" y="30" width="31" height="30"/>
+                                <state key="normal" title="返回"/>
+                                <connections>
+                                    <action selector="backBtnDidClick:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fKH-LR-mSZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="MVP-mz-VOm" secondAttribute="trailing" id="HCA-GZ-rel"/>
+                            <constraint firstItem="YFX-4H-072" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="IbQ-rG-yAA"/>
+                            <constraint firstItem="MVP-mz-VOm" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" id="L7F-XE-nCg"/>
+                            <constraint firstItem="YFX-4H-072" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" constant="10" id="czh-Mm-0K7"/>
+                            <constraint firstItem="MVP-mz-VOm" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" id="ilr-9Y-kC8"/>
+                            <constraint firstItem="rY6-kV-CGr" firstAttribute="bottom" secondItem="MVP-mz-VOm" secondAttribute="bottom" id="s6P-1f-32y"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rY6-kV-CGr"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="sceneView" destination="MVP-mz-VOm" id="YO2-Xc-CyG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="828" y="-259"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="fYe-gq-Xq9">
+            <objects>
+                <viewController id="5D5-mb-HjW" customClass="HomeViewController" customModule="ARKitPhysics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nS6-RE-wpD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="mNR-qs-ebr">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5el-Le-I3h">
+                                <rect key="frame" x="134" y="551" width="107" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="点击开启AR"/>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="show" id="ACx-cz-a7a"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mNR-qs-ebr" firstAttribute="top" secondItem="l07-80-NcY" secondAttribute="top" id="IWk-rj-P8n"/>
+                            <constraint firstItem="l07-80-NcY" firstAttribute="bottom" secondItem="mNR-qs-ebr" secondAttribute="bottom" id="ZEO-7D-Eeu"/>
+                            <constraint firstItem="l07-80-NcY" firstAttribute="trailing" secondItem="mNR-qs-ebr" secondAttribute="trailing" id="eD5-sO-0on"/>
+                            <constraint firstItem="l07-80-NcY" firstAttribute="bottom" secondItem="5el-Le-I3h" secondAttribute="bottom" constant="80" id="hHW-19-IdI"/>
+                            <constraint firstItem="5el-Le-I3h" firstAttribute="centerX" secondItem="nS6-RE-wpD" secondAttribute="centerX" id="idH-QV-NQ4"/>
+                            <constraint firstItem="mNR-qs-ebr" firstAttribute="leading" secondItem="l07-80-NcY" secondAttribute="leading" id="sHt-Bj-qck"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="l07-80-NcY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0No-ll-zKW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-74" y="-258"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="flower" width="466" height="628"/>
+    </resources>
 </document>
