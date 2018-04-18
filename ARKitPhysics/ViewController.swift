@@ -25,17 +25,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSceneView()
         
         configureLighting()
         addTapGestureToSceneView()
         // addSwipeGestureToSceneView()
         addPanGestureToSceneView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupSceneView()
-    }
+    }     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -71,7 +67,9 @@ class ViewController: UIViewController {
     func setupSceneView() {
         sceneView.delegate = self
         sceneView.scene = chameleon
-        // Show statistics such as fps and timing information
+        
+        chameleon.hide()
+        
         sceneView.showsStatistics = true
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
     }
@@ -136,6 +134,11 @@ class ViewController: UIViewController {
 
         chameleon.setTransform(hitTestResult.worldTransform)
         chameleon.show()
+        
+        // 隐藏toast
+        DispatchQueue.main.async {
+            self.hideToast()
+        }
         
     }
 
@@ -235,10 +238,12 @@ extension ViewController: ARSCNViewDelegate {
         planeNode.eulerAngles.x = -.pi / 2
         // 更新平面刚体
         update(&planeNode, withGeometry: plane, type: .static)
-        
         node.addChildNode(planeNode)
-        
         planeNodes.append(planeNode)
+        
+        DispatchQueue.main.async {
+            self.showToast("双击屏幕放置恐龙")
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
