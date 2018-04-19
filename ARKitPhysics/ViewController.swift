@@ -135,6 +135,7 @@ class ViewController: UIViewController {
     
     ///  添加恐龙
     @objc func addChameleonToSceneView(recognizer: UIGestureRecognizer) {
+        
         let tapLocation = recognizer.location(in: sceneView)
         let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
         guard let hitTestResult = hitTestResults.first else {
