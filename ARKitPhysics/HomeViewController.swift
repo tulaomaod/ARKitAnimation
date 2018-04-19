@@ -22,9 +22,9 @@ class HomeViewController: UIViewController {
     }
     
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
     
     /*
     // MARK: - Navigation

@@ -21,13 +21,6 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVP-mz-VOm">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-4H-072">
-                                <rect key="frame" x="10" y="30" width="31" height="30"/>
-                                <state key="normal" title="返回"/>
-                                <connections>
-                                    <action selector="backBtnDidClick:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fKH-LR-mSZ"/>
-                                </connections>
-                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcX-5E-jcK" userLabel="toast">
                                 <rect key="frame" x="72" y="30" width="230" height="30"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2dI-Yc-TZ0">
@@ -52,15 +45,22 @@
                                 </constraints>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-4H-072">
+                                <rect key="frame" x="334" y="30" width="31" height="30"/>
+                                <state key="normal" title="关闭"/>
+                                <connections>
+                                    <action selector="backBtnDidClick:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fKH-LR-mSZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DcX-5E-jcK" firstAttribute="centerX" secondItem="SQG-tv-nYS" secondAttribute="centerX" id="7gv-pr-jpL"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="MVP-mz-VOm" secondAttribute="trailing" id="HCA-GZ-rel"/>
-                            <constraint firstItem="YFX-4H-072" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="IbQ-rG-yAA"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" id="L7F-XE-nCg"/>
+                            <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="YFX-4H-072" secondAttribute="trailing" constant="10" id="Mua-UV-RhQ"/>
                             <constraint firstItem="DcX-5E-jcK" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="Nat-41-GzZ"/>
-                            <constraint firstItem="YFX-4H-072" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" constant="10" id="czh-Mm-0K7"/>
+                            <constraint firstItem="YFX-4H-072" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="aQL-GL-gKK"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" id="ilr-9Y-kC8"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="bottom" secondItem="MVP-mz-VOm" secondAttribute="bottom" id="s6P-1f-32y"/>
                         </constraints>
