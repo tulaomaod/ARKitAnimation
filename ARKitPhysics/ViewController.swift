@@ -19,8 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     var planeNodes = [SCNNode]()
-    // let rocketshipNodeName = "rocketship"
-    
+
     var chameleon = Chameleon()
     
     var lastScaleFactor: Float = 1.0
@@ -31,7 +30,6 @@ class ViewController: UIViewController {
         
         configureLighting()
         addTapGestureToSceneView()
-        // addSwipeGestureToSceneView()
         addPanGestureToSceneView()
         addPinchGestureToSceneView()
         
@@ -105,15 +103,7 @@ class ViewController: UIViewController {
         tapGesture.require(toFail: doubleTapGesture)
     }
     
-    func addSwipeGestureToSceneView() {
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.applyForceToRocketship(recognizer:)))
-        swipeUpGesture.direction = .up
-        sceneView.addGestureRecognizer(swipeUpGesture)
-        
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.launchRocketship(recognizer:)))
-        swipeDownGesture.direction = .down
-        sceneView.addGestureRecognizer(swipeDownGesture)
-    }
+
     
     /// 添加拖拽手势
     func addPanGestureToSceneView() {
@@ -136,19 +126,21 @@ class ViewController: UIViewController {
     ///  添加恐龙
     @objc func addChameleonToSceneView(recognizer: UIGestureRecognizer) {
         
-        let tapLocation = recognizer.location(in: sceneView)
-        let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
-        guard let hitTestResult = hitTestResults.first else {
-            return
-        }
-
-        chameleon.setTransform(hitTestResult.worldTransform)
-        chameleon.show()
+//        let tapLocation = recognizer.location(in: sceneView)
+//        let hitTestResults = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+//        guard let hitTestResult = hitTestResults.first else {
+//            return
+//        }
+//
+//        chameleon.setTransform(hitTestResult.worldTransform)
+//        chameleon.show()
+//
+//        // 隐藏toast
+//        DispatchQueue.main.async {
+//            self.hideToast()
+//        }
         
-        // 隐藏toast
-        DispatchQueue.main.async {
-            self.hideToast()
-        }
+        startNewSession()
         
     }
 
@@ -191,18 +183,6 @@ class ViewController: UIViewController {
                 lastScaleFactor = lastScaleFactor * factor
             }
         }
-    }
-    
-    /// 添加作用力
-    @objc func applyForceToRocketship(recognizer: UIGestureRecognizer) {
-        // 右转
-        chameleon.turnRight()
-    }
-    
-    /// 发射火箭
-    @objc func launchRocketship(recognizer: UIGestureRecognizer) {
-        // 恐龙左转
-        chameleon.turnLeft()
     }
     
     // MARK: - button点击
