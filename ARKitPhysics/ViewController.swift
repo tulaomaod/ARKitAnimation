@@ -154,7 +154,12 @@ class ViewController: UIViewController {
 
     /// 切换动画
     @objc func switchAnimation(recognizer: UIGestureRecognizer) {
-        chameleon.turnRight()
+        let i = arc4random_uniform(10)
+        if i % 2 == 0 {
+            chameleon.turnRight()
+        } else {
+            chameleon.turnLeft()
+        }
     }
     
     /// 手势拖拽
@@ -262,7 +267,7 @@ extension ViewController: ARSCNViewDelegate {
         let height = CGFloat(planeAnchor.extent.z)
         let plane = SCNPlane(width: width, height: height)
         plane.materials.first?.diffuse.contents = UIColor.transparentWhite
-        var planeNode = SCNNode(geometry: plane)
+        let planeNode = SCNNode(geometry: plane)
         
         planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         planeNode.eulerAngles.x = -.pi / 2
@@ -297,7 +302,7 @@ extension ViewController: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor,
-        var planeNode = node.childNodes.first,
+            let planeNode = node.childNodes.first,
         let plane = planeNode.geometry as? SCNPlane else {
             return
         }
@@ -308,7 +313,6 @@ extension ViewController: ARSCNViewDelegate {
         plane.height = height
         
         planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
-        update(&planeNode, withGeometry: plane, type: .static)
     }
 
 }
