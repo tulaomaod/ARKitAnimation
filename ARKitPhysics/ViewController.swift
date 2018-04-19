@@ -266,13 +266,22 @@ extension ViewController: ARSCNViewDelegate {
         
         planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         planeNode.eulerAngles.x = -.pi / 2
-        // 更新平面刚体
-        update(&planeNode, withGeometry: plane, type: .static)
         node.addChildNode(planeNode)
         planeNodes.append(planeNode)
         
-        DispatchQueue.main.async {
-            self.showToast("双击屏幕放置恐龙")
+//        DispatchQueue.main.async {
+//            self.showToast("双击屏幕放置恐龙")
+//        }
+        
+        
+        if chameleon.isVisible() { return }
+        if anchor is ARPlaneAnchor {
+            chameleon.setTransform(anchor.transform)
+            chameleon.show()
+            
+            DispatchQueue.main.async {
+                self.hideToast()
+            }
         }
     }
     
@@ -301,13 +310,7 @@ extension ViewController: ARSCNViewDelegate {
         planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         update(&planeNode, withGeometry: plane, type: .static)
     }
-    
-    // 更新平面节点的物理刚体
-    func update(_ node: inout SCNNode, withGeometry geometry: SCNGeometry, type: SCNPhysicsBodyType)  {
-        let shape = SCNPhysicsShape(geometry: geometry, options: nil)
-        let physicsBody = SCNPhysicsBody(type: type, shape: shape)
-        node.physicsBody = physicsBody
-    }
+
 }
 
 extension float4x4 {
