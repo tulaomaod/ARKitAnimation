@@ -249,7 +249,7 @@ extension ViewController: ARSCNViewDelegate {
         plane.materials.first?.diffuse.contents = UIColor.transparentWhite
         let planeNode = SCNNode(geometry: plane)
         
-        planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
+        planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y - 0.1, planeAnchor.center.z)
         planeNode.eulerAngles.x = -.pi / 2
         node.addChildNode(planeNode)
         planeNodes.append(planeNode)
@@ -261,6 +261,7 @@ extension ViewController: ARSCNViewDelegate {
         
         if chameleon.isVisible() { return }
         if anchor is ARPlaneAnchor {
+            
             chameleon.setTransform(anchor.transform)
             chameleon.show()
             
