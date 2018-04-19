@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     var chameleon = Chameleon()
     
+    var lastScaleFactor: Float = 1.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSceneView()
@@ -31,6 +33,8 @@ class ViewController: UIViewController {
         addTapGestureToSceneView()
         // addSwipeGestureToSceneView()
         addPanGestureToSceneView()
+        addPinchGestureToSceneView()
+        
     }     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,6 +121,11 @@ class ViewController: UIViewController {
         sceneView.addGestureRecognizer(panGesture)
     }
     
+    func addPinchGestureToSceneView() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.didPinch(recognizer:)))
+        sceneView.addGestureRecognizer(pinchGesture)
+    }
+    
     func configureLighting() {
         // 是否自动更新场景的照明
         sceneView.automaticallyUpdatesLighting = true
@@ -148,13 +157,33 @@ class ViewController: UIViewController {
     }
     
     /// 手势拖拽
-    @objc func didPan(recognizer: UIGestureRecognizer) {
+    @objc func didPan(recognizer: UIPanGestureRecognizer) {
         let location = recognizer.location(in: sceneView)
         
         let arHitTestResult = sceneView.hitTest(location, types: .existingPlane)
         if !arHitTestResult.isEmpty {
             let hit = arHitTestResult.first!
             chameleon.setTransform(hit.worldTransform)
+        }
+    }
+    /// 捏合手势
+    @objc func didPinch(recognizer: UIPinchGestureRecognizer) {
+        
+        print("didPinch")
+        let factor = Float(recognizer.scale)
+        print("factor", factor)
+        if factor > 1 { // 放大
+            chameleon.zoomWithScale(lastScaleFactor + factor - 1)
+        } else { // 缩小
+            chameleon.zoomWithScale(lastScaleFactor * factor)
+        }
+        
+        if recognizer.state == UIGestureRecognizerState.ended {
+            if factor > 1 {
+                lastScaleFactor = lastScaleFactor + factor - 1
+            } else {
+                lastScaleFactor = lastScaleFactor * factor
+            }
         }
     }
     

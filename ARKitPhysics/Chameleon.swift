@@ -72,6 +72,10 @@ class Chameleon: SCNScene {
         contentRootNode.simdTransform = transform
     }
     
+    func zoomWithScale(_ scale: Float) {
+        contentRootNode.scale = SCNVector3Make(scale, scale, scale)
+    }
+    
     // MARK: - 转向和初始动画
     private func preloadAnimations() {
         
