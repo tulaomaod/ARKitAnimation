@@ -52,26 +52,39 @@
                                     <action selector="backBtnDidClick:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fKH-LR-mSZ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Swg-fn-8MH">
-                                <rect key="frame" x="72" y="616" width="240" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Swg-fn-8MH" customClass="SegmentedControl" customModule="ARKitPhysics" customModuleProvider="target">
+                                <rect key="frame" x="97.5" y="607" width="180" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KXP-8j-21Z"/>
+                                    <constraint firstAttribute="width" constant="180" id="YLZ-Cr-RnR"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2s-TE-IsE" customClass="SquishButton" customModule="ARKitPhysics" customModuleProvider="target">
-                                <rect key="frame" x="172" y="578" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2s-TE-IsE" customClass="SquishButton" customModule="ARKitPhysics" customModuleProvider="target">
+                                <rect key="frame" x="157.5" y="537" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="viD-cH-ZVW"/>
+                                    <constraint firstAttribute="height" constant="60" id="vur-RO-rRY"/>
+                                </constraints>
                                 <state key="normal" title="录制"/>
+                                <connections>
+                                    <action selector="recordVideo:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fb4-jG-cFY"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DcX-5E-jcK" firstAttribute="centerX" secondItem="SQG-tv-nYS" secondAttribute="centerX" id="7gv-pr-jpL"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="MVP-mz-VOm" secondAttribute="trailing" id="HCA-GZ-rel"/>
+                            <constraint firstItem="t2s-TE-IsE" firstAttribute="centerX" secondItem="SQG-tv-nYS" secondAttribute="centerX" id="I55-hB-H8Q"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" id="L7F-XE-nCg"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="trailing" secondItem="YFX-4H-072" secondAttribute="trailing" constant="10" id="Mua-UV-RhQ"/>
                             <constraint firstItem="DcX-5E-jcK" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="Nat-41-GzZ"/>
+                            <constraint firstItem="Swg-fn-8MH" firstAttribute="centerX" secondItem="SQG-tv-nYS" secondAttribute="centerX" id="OZQ-78-iow"/>
                             <constraint firstItem="YFX-4H-072" firstAttribute="top" secondItem="rY6-kV-CGr" secondAttribute="top" constant="10" id="aQL-GL-gKK"/>
+                            <constraint firstItem="Swg-fn-8MH" firstAttribute="top" secondItem="t2s-TE-IsE" secondAttribute="bottom" constant="10" id="gCg-So-kdc"/>
                             <constraint firstItem="MVP-mz-VOm" firstAttribute="leading" secondItem="rY6-kV-CGr" secondAttribute="leading" id="ilr-9Y-kC8"/>
+                            <constraint firstItem="rY6-kV-CGr" firstAttribute="bottom" secondItem="Swg-fn-8MH" secondAttribute="bottom" constant="30" id="lDP-GD-JYo"/>
                             <constraint firstItem="rY6-kV-CGr" firstAttribute="bottom" secondItem="MVP-mz-VOm" secondAttribute="bottom" id="s6P-1f-32y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rY6-kV-CGr"/>
@@ -79,6 +92,8 @@
                     <connections>
                         <outlet property="label" destination="QhZ-GV-1u0" id="9cO-dt-GqH"/>
                         <outlet property="sceneView" destination="MVP-mz-VOm" id="YO2-Xc-CyG"/>
+                        <outlet property="segmentedControl" destination="Swg-fn-8MH" id="vdR-Ne-n1w"/>
+                        <outlet property="squishBtn" destination="t2s-TE-IsE" id="jX7-y7-n6v"/>
                         <outlet property="toast" destination="DcX-5E-jcK" id="w0m-rF-djI"/>
                     </connections>
                 </viewController>
