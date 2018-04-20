@@ -15,14 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var toast: UIVisualEffectView!
-    
     @IBOutlet weak var label: UILabel!
     
     var planeNodes = [SCNNode]()
-
     var chameleon = Chameleon()
-    
     var lastScaleFactor: Float = 1.0
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
