@@ -21,6 +21,13 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func startAR(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "ARMain", bundle: nil)
+        let arVC = storyboard.instantiateInitialViewController()!
+        self.show(arVC, sender: nil)
+    }
+    
+    
 
 //    override var prefersStatusBarHidden: Bool {
 //        return true

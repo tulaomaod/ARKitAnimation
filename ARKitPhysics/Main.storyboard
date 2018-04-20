@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eFH-JI-nsq">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="IFd-IV-god">
+            <objects>
+                <viewController id="eFH-JI-nsq" customClass="HomeViewController" customModule="ARKitPhysics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xtk-P5-mVc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="3Ed-JU-6MR">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nec-HT-Uy6">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem id="dhc-uv-RFU">
+                                        <nil key="title"/>
+                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HYX-G9-Dfy">
+                                            <rect key="frame" x="162" y="7" width="51" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="开启AR"/>
+                                            <connections>
+                                                <action selector="startAR:" destination="eFH-JI-nsq" eventType="touchUpInside" id="Ffl-d3-PT3"/>
+                                            </connections>
+                                        </button>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Nec-HT-Uy6" firstAttribute="trailing" secondItem="Adn-Yj-aBW" secondAttribute="trailing" id="3gW-rI-kqT"/>
+                            <constraint firstItem="Adn-Yj-aBW" firstAttribute="trailing" secondItem="3Ed-JU-6MR" secondAttribute="trailing" id="52i-mg-1n9"/>
+                            <constraint firstItem="Nec-HT-Uy6" firstAttribute="leading" secondItem="Adn-Yj-aBW" secondAttribute="leading" id="Faz-2c-LVi"/>
+                            <constraint firstItem="Adn-Yj-aBW" firstAttribute="bottom" secondItem="3Ed-JU-6MR" secondAttribute="bottom" id="Y7J-Ot-5wE"/>
+                            <constraint firstItem="Nec-HT-Uy6" firstAttribute="top" secondItem="Adn-Yj-aBW" secondAttribute="top" id="g5T-wT-Uag"/>
+                            <constraint firstItem="3Ed-JU-6MR" firstAttribute="top" secondItem="Adn-Yj-aBW" secondAttribute="top" id="mv5-0g-AB8"/>
+                            <constraint firstItem="3Ed-JU-6MR" firstAttribute="leading" secondItem="Adn-Yj-aBW" secondAttribute="leading" id="ohU-6z-jIB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Adn-Yj-aBW"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4qH-hv-4ML" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-38" y="108"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="flower" width="466" height="628"/>
+    </resources>
+</document>
