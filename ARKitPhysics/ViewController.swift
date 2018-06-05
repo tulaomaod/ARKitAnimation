@@ -521,6 +521,11 @@ extension ViewController: ARSCNViewDelegate {
                 self.hideToast()
             }
         }
+        
+        // 场景中已添加3d模型停止平面检测
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration, options: [])
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
