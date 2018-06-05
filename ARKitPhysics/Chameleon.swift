@@ -87,7 +87,6 @@ class Chameleon: SCNScene {
         turnLeftAnimation?.blendInDuration = 0.3
         turnLeftAnimation?.blendOutDuration = 0.3
 
-        
         turnRightAnimation = SCNAnimation.fromFile(named: "anim_turnright", inDirectory: "art.scnassets")
         turnRightAnimation?.repeatCount = 1
         turnRightAnimation?.blendInDuration = 0.3
