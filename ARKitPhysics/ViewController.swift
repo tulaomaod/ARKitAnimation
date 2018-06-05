@@ -25,7 +25,6 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
     var recorder:RecordAR?
     let recordingQueue = DispatchQueue(label: "recordingThread", attributes: .concurrent)
     
-    @IBOutlet weak var segmentedControl: SegmentedControl!
     @IBOutlet weak var squishBtn: SquishButton!
     
     private var nowImage: UIImage!
@@ -56,9 +55,6 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         
         // 录制
         setUpRecordVideo()
-        
-        // 切换
-        configureSegmentedControl()
         
     }
     
@@ -145,8 +141,6 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         // Initialize ARVideoKit recorder
         recorder = RecordAR(ARSceneKit: sceneView)
         
-        /*----👇---- ARVideoKit Configuration ----👇----*/
-        
         // Set the recorder's delegate
         recorder?.delegate = self
         
@@ -163,38 +157,6 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         recorder?.inputViewOrientations = [.landscapeLeft, .landscapeRight, .portrait]
         // Configure RecordAR to store media files in local app directory
         recorder?.deleteCacheWhenExported = false
-    }
-    
-    // MARK: - SegmentedControl
-    
-    fileprivate func configureSegmentedControl() {
-        let titleStrings = ["可拍照", "录视频"]
-        let titles: [NSAttributedString] = {
-            let attributes: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.lightGray]
-            var titles = [NSAttributedString]()
-            for titleString in titleStrings {
-                let title = NSAttributedString(string: titleString, attributes: attributes)
-                titles.append(title)
-            }
-            return titles
-        }()
-        let selectedTitles: [NSAttributedString] = {
-            let attributes: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.white]
-            var selectedTitles = [NSAttributedString]()
-            for titleString in titleStrings {
-                let selectedTitle = NSAttributedString(string: titleString, attributes: attributes)
-                selectedTitles.append(selectedTitle)
-            }
-            return selectedTitles
-        }()
-        segmentedControl.setTitles(titles, selectedTitles: selectedTitles)
-        segmentedControl.delegate = self
-        segmentedControl.selectionBoxStyle = .none
-        segmentedControl.minimumSegmentWidth = 375.0 / 4.0
-        segmentedControl.selectionBoxColor = UIColor.clear
-        segmentedControl.selectionIndicatorStyle = .none
-        
-        // segmentedControl.selectionIndicatorColor = UIColor(white: 0.3, alpha: 1)
     }
     
     // MARK: - Exported UIAlert present method
@@ -588,51 +550,6 @@ extension ViewController {
         // Use this method to pause or stop video recording. Check [applicationWillResignActive(_:)](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622950-applicationwillresignactive) for more information.
         if status == .recording {
             recorder?.stopAndExport()
-        }
-    }
-}
-
-// MARK: - SegmentedControlDelegate
-
-extension ViewController: SegmentedControlDelegate {
-    func segmentedControl(_ segmentedControl: SegmentedControl, didSelectIndex selectedIndex: Int) {
-        print("Did select index \(selectedIndex)")
-        switch segmentedControl.style {
-        case .text:
-            print("The title is “\(segmentedControl.titles[selectedIndex].string)”\n")
-        case .image:
-            print("The image is “\(segmentedControl.images[selectedIndex])”\n")
-        }
-        
-        switch selectedIndex {
-        case 0: //
-            squishBtn.type = ButtonType.camera
-        case 1:
-            squishBtn.type = ButtonType.video
-        default:
-            print("hhhhh")
-        }
-    }
-    
-    func segmentedControl(_ segmentedControl: SegmentedControl, didLongPressIndex longPressIndex: Int) {
-        print("Did long press index \(longPressIndex)")
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            let viewController = UIViewController()
-            viewController.modalPresentationStyle = .popover
-            viewController.preferredContentSize = CGSize(width: 200, height: 300)
-            if let popoverController = viewController.popoverPresentationController {
-                popoverController.sourceView = view
-                let yOffset: CGFloat = 10
-                popoverController.sourceRect = view.convert(CGRect(origin: CGPoint(x: 70 * CGFloat(longPressIndex), y: yOffset), size: CGSize(width: 70, height: 30)), from: navigationItem.titleView)
-                popoverController.permittedArrowDirections = .any
-                present(viewController, animated: true, completion: nil)
-            }
-        } else {
-            let message = segmentedControl.style == .text ? "Long press title “\(segmentedControl.titles[longPressIndex].string)”" : "Long press image “\(segmentedControl.images[longPressIndex])”"
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
         }
     }
 }
