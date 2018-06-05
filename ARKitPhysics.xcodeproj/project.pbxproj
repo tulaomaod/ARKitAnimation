@@ -16,7 +16,7 @@
 		7E687BDF2071C92100752B38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E687BDE2071C92100752B38 /* Assets.xcassets */; };
 		7E687BE22071C92100752B38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E687BE02071C92100752B38 /* LaunchScreen.storyboard */; };
 		7EB05C4E2089DBD90046FCEC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB05C322089DBD90046FCEC /* Player.swift */; };
-		7EB05C502089DBF90046FCEC /* a.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7EB05C4F2089DBF90046FCEC /* a.mp4 */; };
+		7EB05C502089DBF90046FCEC /* playerneed.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7EB05C4F2089DBF90046FCEC /* playerneed.mp4 */; };
 		7EB05C522089DD870046FCEC /* SquishButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB05C512089DD860046FCEC /* SquishButton.swift */; };
 		7EB05C542089F7EF0046FCEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB05C532089F7EF0046FCEC /* Main.storyboard */; };
 		7EB6D53B20C665A70090EA14 /* ARInputViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6D51D20C665A70090EA14 /* ARInputViewOptions.swift */; };
@@ -40,6 +40,8 @@
 		7EB6D54D20C665A70090EA14 /* video.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EB6D53720C665A70090EA14 /* video.scnassets */; };
 		7EB6D54E20C665A70090EA14 /* RenderARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6D53920C665A70090EA14 /* RenderARDelegate.swift */; };
 		7EB6D54F20C665A70090EA14 /* RecordARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6D53A20C665A70090EA14 /* RecordARDelegate.swift */; };
+		7EB6D55120C66AB10090EA14 /* Watermark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6D55020C66AB00090EA14 /* Watermark+Extension.swift */; };
+		7EB6D55320C66D9F0090EA14 /* Images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7EB6D55220C66D9F0090EA14 /* Images.bundle */; };
 		7ECC49372086ECBF00AD40CC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECC49362086ECBF00AD40CC /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +58,7 @@
 		7E687BE32071C92100752B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EB05C312089DBD90046FCEC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		7EB05C322089DBD90046FCEC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		7EB05C4F2089DBF90046FCEC /* a.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.mp4; sourceTree = "<group>"; };
+		7EB05C4F2089DBF90046FCEC /* playerneed.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = playerneed.mp4; sourceTree = "<group>"; };
 		7EB05C512089DD860046FCEC /* SquishButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquishButton.swift; sourceTree = "<group>"; };
 		7EB05C532089F7EF0046FCEC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7EB6D51D20C665A70090EA14 /* ARInputViewOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARInputViewOptions.swift; sourceTree = "<group>"; };
@@ -81,6 +83,8 @@
 		7EB6D53720C665A70090EA14 /* video.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = video.scnassets; sourceTree = "<group>"; };
 		7EB6D53920C665A70090EA14 /* RenderARDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderARDelegate.swift; sourceTree = "<group>"; };
 		7EB6D53A20C665A70090EA14 /* RecordARDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordARDelegate.swift; sourceTree = "<group>"; };
+		7EB6D55020C66AB00090EA14 /* Watermark+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Watermark+Extension.swift"; sourceTree = "<group>"; };
+		7EB6D55220C66D9F0090EA14 /* Images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Images.bundle; sourceTree = "<group>"; };
 		7ECC49362086ECBF00AD40CC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,7 +126,9 @@
 				7E4183BE207A2B5E0052DB98 /* Extension.swift */,
 				7E4183C0207A2BC90052DB98 /* Chameleon.swift */,
 				7EB05C512089DD860046FCEC /* SquishButton.swift */,
+				7EB6D55020C66AB00090EA14 /* Watermark+Extension.swift */,
 				7E687BDB2071C92000752B38 /* ARMain.storyboard */,
+				7EB6D55220C66D9F0090EA14 /* Images.bundle */,
 				7E687BD72071C92000752B38 /* art.scnassets */,
 				7E687BDE2071C92100752B38 /* Assets.xcassets */,
 				7E687BE02071C92100752B38 /* LaunchScreen.storyboard */,
@@ -135,7 +141,7 @@
 		7EB05C302089DBD90046FCEC /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				7EB05C4F2089DBF90046FCEC /* a.mp4 */,
+				7EB05C4F2089DBF90046FCEC /* playerneed.mp4 */,
 				7EB05C312089DBD90046FCEC /* Player.h */,
 				7EB05C322089DBD90046FCEC /* Player.swift */,
 			);
@@ -303,11 +309,12 @@
 			files = (
 				7E687BD82071C92000752B38 /* art.scnassets in Resources */,
 				7EB6D54520C665A70090EA14 /* LoveLiver_LICENSE in Resources */,
+				7EB6D55320C66D9F0090EA14 /* Images.bundle in Resources */,
 				7E687BE22071C92100752B38 /* LaunchScreen.storyboard in Resources */,
 				7EB6D54D20C665A70090EA14 /* video.scnassets in Resources */,
 				7EB05C542089F7EF0046FCEC /* Main.storyboard in Resources */,
 				7E687BDF2071C92100752B38 /* Assets.xcassets in Resources */,
-				7EB05C502089DBF90046FCEC /* a.mp4 in Resources */,
+				7EB05C502089DBF90046FCEC /* playerneed.mp4 in Resources */,
 				7E687BDD2071C92000752B38 /* ARMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +331,7 @@
 				7EB6D54B20C665A70090EA14 /* RenderAR.swift in Sources */,
 				7ECC49372086ECBF00AD40CC /* HomeViewController.swift in Sources */,
 				7EB05C522089DD870046FCEC /* SquishButton.swift in Sources */,
+				7EB6D55120C66AB10090EA14 /* Watermark+Extension.swift in Sources */,
 				7E4183BF207A2B5E0052DB98 /* Extension.swift in Sources */,
 				7EB6D54620C665A70090EA14 /* PHLivePhotoPlus.swift in Sources */,
 				7EB6D54E20C665A70090EA14 /* RenderARDelegate.swift in Sources */,

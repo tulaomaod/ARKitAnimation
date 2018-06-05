@@ -10,6 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 import Photos
+import UIKit.UIGestureRecognizerSubclass
 
 class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
 
@@ -25,7 +26,15 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
     var recorder:RecordAR?
     let recordingQueue = DispatchQueue(label: "recordingThread", attributes: .concurrent)
     
-    @IBOutlet weak var squishBtn: SquishButton!
+    @IBOutlet weak var squishButton: SquishButton!
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    /// 录制时间
+    var count: Float!
+    /// 定时器
+    var timer: Timer!
+    /// 最大录制时间
+    let maxVideoTime: Float = 10.0
     
     private var nowImage: UIImage!
     private var nowVedioUrl: URL!
@@ -55,6 +64,7 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         
         // 录制
         setUpRecordVideo()
+        setupRecordUI()
         
     }
     
@@ -159,6 +169,20 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         recorder?.deleteCacheWhenExported = false
     }
     
+    /// 设置录制UI
+    func setupRecordUI() {
+        progressView.progress = 0
+        progressView.isHidden = true
+        progressView.progressTintColor = UIColor.red
+        
+        squishButton.addTarget(self, action: #selector(self.squishButtonTouchUpInside(sender:)), for: UIControlEvents.touchUpInside)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(squishButtonLongPress(gesture:)))
+        // 定义长按0.8时间触发
+        longPress.minimumPressDuration = 0.8
+        squishButton.addGestureRecognizer(longPress)
+        
+    }
+    
     // MARK: - Exported UIAlert present method
     func exportMessage(success: Bool, status:PHAuthorizationStatus) {
         if success {
@@ -193,38 +217,88 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
     }
     
     // MARK: - 按钮点击
-    @IBAction func recordVideo(_ sender: SquishButton) {
-        if sender.type == ButtonType.camera {
-            isVedio = false
+
+    @objc func squishButtonTouchUpInside(sender: UIButton) {
+        print("squishButtonTouchUpInside")
+        // 拍照
+        squishButton.type = ButtonType.camera
+        isVedio = false
+        // 加水印后的图片
+        let wmImage = self.recorder?.photo().createImageWaterMark(waterImage: UIImage(named: "logo")!)
+        nowImage = wmImage
+        // 特殊方法显示player
+        self.player.url = Bundle.main.url(forResource: "playerneed", withExtension: "mp4")
+        self.player.playFromBeginning()
+        self.player.pause()
+        
+        bgImageView.isHidden = false
+        bgImageView.image = nowImage
+        
+    }
+    
+    @objc func squishButtonLongPress(gesture: UILongPressGestureRecognizer) {
+        
+        if gesture.state == .began { // 开始录制视频
+            print("longpressbegan")
+            squishButton.type = ButtonType.video
             
-            nowImage = self.recorder?.photo()
-            self.player.url = Bundle.main.url(forResource: "a", withExtension: "mp4")
-            self.player.playFromBeginning()
-            self.player.pause()
-            bgImageView.isHidden = false
-            bgImageView.image = nowImage
+            progressView.isHidden = false
+            // 计时
+            count = 0
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleTimer(sender:)), userInfo: nil, repeats: true)
+            timer.fire()
             
-        } else if sender.type == ButtonType.video {
             isVedio = true
-            //Record
-            if recorder?.status == .readyToRecord {
-                sender.setTitle("停止", for: .normal)
+            
+            // Record
+            if recorder?.status == .readyToRecord { // 开始录制
                 
                 recordingQueue.async {
                     self.recorder?.record()
                 }
-            }else if recorder?.status == .recording {
-                sender.setTitle("录制", for: .normal)
+            }
+            
+        } else if gesture.state == .ended { // 结束录制视频
+            print("longpressended")
+            squishButton.type = ButtonType.camera
+            
+            timer.invalidate()
+            print("-count-\(count)")
+            progressView.isHidden = true
+            
+            // recorder
+            if recorder?.status == .recording { // 停止录制
+                
                 recorder?.stop({ (url) in
                     DispatchQueue.main.async {
                         self.bgImageView.isHidden = true
                     }
+                    // 水印后的视频url
+                    url.createVideoWaterMark(waterImage: UIImage(named: "logo")!, completion: { (wmUrl, error) in
+                        
+                        self.nowVedioUrl = wmUrl
+                        self.player.url = wmUrl
+                        self.player.playFromBeginning()
+                    })
                     
-                    self.nowVedioUrl = url
-                    self.player.url = url
-                    self.player.playFromBeginning()
                 })
             }
+        }
+        
+    }
+    
+    @objc func handleTimer(sender: Timer) {
+        count = count + 0.1
+        if maxVideoTime > count { // 继续录制视频
+            progressView.progress = count / maxVideoTime
+            
+        } else { // 停止录制视频
+            let gesture = squishButton.gestureRecognizers?.filter({ (gesture) -> Bool in
+                return gesture is UILongPressGestureRecognizer
+            }).first as! UILongPressGestureRecognizer
+            
+            gesture.state = .ended
+            print("到时间了")
         }
     }
     
@@ -261,7 +335,7 @@ class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
         
         chameleon.hide()
         
-        sceneView.showsStatistics = true
+        // sceneView.showsStatistics = true
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
     }
     
@@ -432,16 +506,16 @@ extension ViewController: ARSCNViewDelegate {
             return
         }
         // 创建平面
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        let plane = SCNPlane(width: width, height: height)
-        plane.materials.first?.diffuse.contents = UIColor.transparentWhite
-        let planeNode = SCNNode(geometry: plane)
-        
-        planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y - 0.1, planeAnchor.center.z)
-        planeNode.eulerAngles.x = -.pi / 2
-        node.addChildNode(planeNode)
-        planeNodes.append(planeNode)
+//        let width = CGFloat(planeAnchor.extent.x)
+//        let height = CGFloat(planeAnchor.extent.z)
+//        let plane = SCNPlane(width: width, height: height)
+//        plane.materials.first?.diffuse.contents = UIColor.transparentWhite
+//        let planeNode = SCNNode(geometry: plane)
+//
+//        planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y - 0.1, planeAnchor.center.z)
+//        planeNode.eulerAngles.x = -.pi / 2
+//        node.addChildNode(planeNode)
+//        planeNodes.append(planeNode)
         
 //        DispatchQueue.main.async {
 //            self.showToast("双击屏幕放置恐龙")

@@ -58,10 +58,6 @@
                                     <constraint firstAttribute="width" constant="48" id="viD-cH-ZVW"/>
                                     <constraint firstAttribute="height" constant="48" id="vur-RO-rRY"/>
                                 </constraints>
-                                <state key="normal" title="录制"/>
-                                <connections>
-                                    <action selector="recordVideo:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fb4-jG-cFY"/>
-                                </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4Ok-n3-Kj9">
                                 <rect key="frame" x="0.0" y="661" width="375" height="6"/>
@@ -90,8 +86,9 @@
                     </view>
                     <connections>
                         <outlet property="label" destination="QhZ-GV-1u0" id="9cO-dt-GqH"/>
+                        <outlet property="progressView" destination="4Ok-n3-Kj9" id="e7j-Ph-wVU"/>
                         <outlet property="sceneView" destination="MVP-mz-VOm" id="YO2-Xc-CyG"/>
-                        <outlet property="squishBtn" destination="t2s-TE-IsE" id="jX7-y7-n6v"/>
+                        <outlet property="squishButton" destination="t2s-TE-IsE" id="MZv-YO-a7D"/>
                         <outlet property="toast" destination="DcX-5E-jcK" id="w0m-rF-djI"/>
                     </connections>
                 </viewController>
