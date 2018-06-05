@@ -12,7 +12,7 @@ import ARKit
 import Photos
 import UIKit.UIGestureRecognizerSubclass
 
-class ViewController: UIViewController, RecordARDelegate, RenderARDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -505,17 +505,6 @@ extension ViewController: ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else {
             return
         }
-        // 创建平面
-//        let width = CGFloat(planeAnchor.extent.x)
-//        let height = CGFloat(planeAnchor.extent.z)
-//        let plane = SCNPlane(width: width, height: height)
-//        plane.materials.first?.diffuse.contents = UIColor.transparentWhite
-//        let planeNode = SCNNode(geometry: plane)
-//
-//        planeNode.position = SCNVector3Make(planeAnchor.center.x, planeAnchor.center.y - 0.1, planeAnchor.center.z)
-//        planeNode.eulerAngles.x = -.pi / 2
-//        node.addChildNode(planeNode)
-//        planeNodes.append(planeNode)
         
 //        DispatchQueue.main.async {
 //            self.showToast("双击屏幕放置恐龙")
@@ -604,7 +593,7 @@ extension ViewController {
 
 // MARK: - ARVideoKit Delegate Methods
 
-extension ViewController {
+extension ViewController:  RecordARDelegate, RenderARDelegate {
     func frame(didRender buffer: CVPixelBuffer, with time: CMTime, using rawBuffer: CVPixelBuffer) {
         // Do some image/video processing.
     }
